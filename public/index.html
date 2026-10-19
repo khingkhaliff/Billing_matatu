@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080a09">
+  <title>Khaliff Technologies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Reusable icons used throughout the dashboard. -->
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-sliders" viewBox="0 0 24 24"><path d="M4 6h6m4 0h6M4 12h2m4 0h10M4 18h8m4 0h4"/><path d="M10 4v4m0 2v4m6 2v4"/></symbol>
+    <symbol id="icon-withdraw" viewBox="0 0 24 24"><path d="M5 19 19 5M8 5h11v11M5 12v7h7"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-fare" viewBox="0 0 24 24"><path d="M5 19 19 5M8 5h11v11M5 12v7h7"/></symbol>
+    <symbol id="icon-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></symbol>
+    <symbol id="icon-bus" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 9h14M8 6h.01M12 6h.01M16 6h.01M8 13h.01M12 13h.01M16 13h.01M9 21v-3h6v3"/></symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M3 11a9 9 0 0 1 15.5-5.8L21 8M21 3v5h-5M21 13a9 9 0 0 1-15.5 5.8L3 16m0 5v-5h5"/></symbol>
+    <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6.5A2.5 2.5 0 0 1 4 17.5z"/><path d="M4 7h16v4h-5a2 2 0 0 0 0 4h5"/><path d="M15 13h.01"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></symbol>
+  </svg>
+
+  <!-- Main view shown after a user signs in. -->
+  <main class="dashboard" hidden>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Khaliff Tech dashboard home">
+        <span class="brand-mark">N</span>
+        <span class="brand-copy"><span class="eyebrow">OPERATIONS DASHBOARD</span><strong id="account-display-name">khaliff</strong></span>
+      </a>
+      <div class="dashboard-actions">
+        <button class="logout-button" id="refresh-dashboard" type="button">Refresh</button>
+        <button class="logout-button" id="logout-button" type="button">Log out</button>
+      </div>
+    </header>
+
+    <section class="balance-panel" aria-labelledby="balance-heading">
+      <div class="balance-topline"><p class="eyebrow" id="balance-heading">PAID FARES TODAY</p></div>
+      <p class="balance-amount" id="balance-amount">—</p>
+      <div class="balance-divider"></div>
+      <div class="balance-bottomline">
+        <div><p class="eyebrow">AWAITING PAYMENT</p><strong id="today-total">—</strong></div>
+      </div>
+    </section>
+
+    <nav class="quick-actions" aria-label="Quick actions">
+      <button class="quick-action quick-action-primary" type="button" data-action="pay-fare">
+        <span class="action-icon"><svg><use href="#icon-fare"/></svg></span><span>Pay fare</span>
+      </button>
+    </nav>
+
+    <p class="dashboard-error" id="dashboard-error" role="alert"></p>
+
+    <section class="health-section" aria-labelledby="health-heading">
+      <div class="section-heading"><div><h2 id="health-heading">Business health</h2><p class="section-note">Live M-PESA activity for today</p></div><span class="heading-accent"></span></div>
+      <div class="health-grid">
+        <article class="health-card">
+          <div class="card-label"><span>COMPLETED FARES</span><svg><use href="#icon-wallet"/></svg></div>
+          <strong id="completed-fares">—</strong><p id="completed-note">KES paid today</p>
+        </article>
+        <article class="health-card">
+          <div class="card-label"><span>AWAITING PAYMENT</span><svg><use href="#icon-calendar"/></svg></div>
+          <strong id="pending-payments">—</strong><p id="pending-note">KES awaiting customer response</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="fares-section" aria-labelledby="fares-heading">
+      <div class="section-heading fares-heading"><div><h2 id="fares-heading">Recent fare activity</h2><p class="section-note">Latest 10 payment prompts</p></div><span class="heading-accent"></span></div>
+      <div id="fare-list" aria-live="polite"><p class="empty-state">Loading fare activity...</p></div>
+    </section>
+  </main>
+
+  <!-- Dialog for sending a fare payment prompt. -->
+  <dialog class="modal" id="fare-modal" aria-labelledby="fare-title">
+    <form class="modal-content" id="fare-form" novalidate>
+      <div class="modal-heading"><div><p class="eyebrow">CUSTOMER PAYMENT</p><h2 id="fare-title">Pay a fare</h2></div><button class="icon-button close-button" type="button" data-close aria-label="Close dialog"><svg><use href="#icon-close"/></svg></button></div>
+      <div id="fare-details-step">
+        <label class="field-label" for="customer-number">Customer phone number</label>
+        <input class="text-input" id="customer-number" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0712 345 678" required>
+        <label class="field-label spaced-label" for="fare-amount">Fare amount</label>
+        <div class="amount-input"><span>KES</span><input id="fare-amount" name="amount" type="number" inputmode="numeric" min="1" step="1" placeholder="0" required></div>
+        <p class="field-error" id="fare-details-error" role="alert"></p>
+        <p class="service-note">An M-PESA STK prompt will be sent to the customer's phone. They must enter their PIN to pay.</p>
+        <p class="field-success" id="fare-details-success" role="status"></p>
+        <button class="submit-button" type="submit">Prompt me <svg><use href="#icon-arrow"/></svg></button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Dialog for signing in or creating an account. -->
+  <dialog class="modal" id="auth-modal" aria-labelledby="auth-title">
+    <form class="modal-content" id="auth-form" novalidate>
+      <div class="modal-heading"><div><p class="eyebrow">ACCOUNT ACCESS</p><h2 id="auth-title">Welcome back</h2></div></div>
+      <div class="auth-tabs" role="group" aria-label="Account action"><button type="button" class="auth-tab is-active" data-auth-mode="login" aria-pressed="true">Log in</button><button type="button" class="auth-tab" data-auth-mode="signup" aria-pressed="false">Sign up</button></div>
+      <div id="signup-name-field" hidden><label class="field-label" for="account-name">Full name</label><input class="text-input form-field" id="account-name" name="name" type="text" autocomplete="name" placeholder="Your name"></div>
+      <label class="field-label form-field" for="account-email">Email address</label>
+      <input class="text-input form-field" id="account-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <label class="field-label form-field" for="account-password">Password</label>
+      <input class="text-input form-field" id="account-password" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="At least 6 characters" required>
+      <p class="field-error" id="auth-error" role="alert"></p>
+      <button class="submit-button" id="auth-submit" type="submit">Log in</button>
+    </form>
+  </dialog>
+</body>
+</html>
