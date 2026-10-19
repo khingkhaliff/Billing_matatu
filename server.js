@@ -51,6 +51,11 @@ const databaseConfig = {
 
 const pool = mysql.createPool({
 	...databaseConfig,
+
+	ssl:{
+		minVersion: "TLSv1.2",
+	}
+	
 	waitForConnections: true,
 	connectionLimit: 10,
 	queueLimit: 0,
